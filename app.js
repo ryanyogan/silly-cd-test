@@ -1,8 +1,12 @@
-const http = require("http");
+const express = require("express");
+const server = require("http").createServer();
+const app = express();
 
-http.createServer(function(_req, res) {
-	res.write("Here is a string...");
-	res.end();
-}).listen(3000);
+app.get("/", function (req, res) {
+  res.sendFile("index.html", { root: __dirname });
+});
 
-console.log("Server started on port 3000");
+server.on("request", app);
+server.listen(3000, function () {
+  console.log("Listening on port 3000");
+});
